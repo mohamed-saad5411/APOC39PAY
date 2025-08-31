@@ -7,8 +7,9 @@ import { URL } from "url";
 const PORT = 4000;
 const MERCHANT_ID = "TESTQNBAATEST001";
 const MPGS_API_PASSWORD = "9c6a123857f1ea50830fa023ad8c8d1b";
-const MPGS_BASE_URL = "https://qnbalahli.test.gateway.mastercard.com";
-const RETURN_URL = "https://www.google.com";
+// const MPGS_BASE_URL = "https://qnbalahli.test.gateway.mastercard.com";
+const MPGS_BASE_URL = "https://qnbalahli.gateway.mastercard.com";
+const RETURN_URL = "https://apoc39.com/src/success.html";
 
 function sendJson(res, status, obj){
   const body = JSON.stringify(obj);
