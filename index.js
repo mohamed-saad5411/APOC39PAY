@@ -6,16 +6,16 @@ import { URL } from "url";
 
 const PORT = 4000;
 // test
-// const MERCHANT_ID = "TESTQNBAATEST001"; //CANCERHOSP // username: merchant.CANCERHOSP
-// const MPGS_API_PASSWORD = "9c6a123857f1ea50830fa023ad8c8d1b"; // b787dc83048361da03682b71078ca05b
-// const MPGS_BASE_URL = "https://qnbalahli.test.gateway.mastercard.com";
+const MERCHANT_ID = "TESTQNBAATEST001"; //CANCERHOSP // username: merchant.CANCERHOSP
+const MPGS_API_PASSWORD = "9c6a123857f1ea50830fa023ad8c8d1b"; // b787dc83048361da03682b71078ca05b
+const MPGS_BASE_URL = "https://qnbalahli.test.gateway.mastercard.com";
 const RETURN_URL = "https://apoc39.com/src/success.html";
 // live
-const MERCHANT_ID = "CANCERHOSP"; // API Username: merchant.CANCERHOSP  // PURCHASE
-const MPGS_API_PASSWORD = "b787dc83048361da03682b71078ca05b"; 
-const MPGS_BASE_URL = "https://qnbalahli.gateway.mastercard.com";
+// const MERCHANT_ID = "CANCERHOSP";
+// const MPGS_API_PASSWORD = "b787dc83048361da03682b71078ca05b"; 
+// const MPGS_BASE_URL = "https://qnbalahli.gateway.mastercard.com";
 
-function sendJson(res, status, obj){
+function sendJson(res, status, obj) {
   const body = JSON.stringify(obj);
   res.writeHead(status, {
     "Content-Type": "application/json",
@@ -25,18 +25,18 @@ function sendJson(res, status, obj){
   });
   res.end(body);
 }
-function readBody(req){
-  return new Promise((resolve, reject)=>{
-    let data=""; req.on("data", c=> data+=c);
-    req.on("end", ()=> { if(!data) return resolve({}); try{ resolve(JSON.parse(data)); } catch{ reject(new Error("Invalid JSON body")); }});
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let data = ""; req.on("data", c => data += c);
+    req.on("end", () => { if (!data) return resolve({}); try { resolve(JSON.parse(data)); } catch { reject(new Error("Invalid JSON body")); } });
     req.on("error", reject);
   });
 }
-function basicAuthHeader(user, pass){
+function basicAuthHeader(user, pass) {
   return `Basic ${Buffer.from(`${user}:${pass}`).toString("base64")}`;
 }
-function uniqueOrderId(){
-  return `ORD-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
+function uniqueOrderId() {
+  return `ORD-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
 const server = createServer(async (req, res) => {
@@ -73,6 +73,7 @@ const server = createServer(async (req, res) => {
           returnUrl,
           operation: "PURCHASE",
           merchant: { name: "TEST Merchant" },
+          // merchant: { name: "merchant.CANCERHOSP" },
         },
         order: {
           currency,
@@ -96,7 +97,7 @@ const server = createServer(async (req, res) => {
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json().catch(()=> ({}));
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         console.error("[MPGS ERROR]", response.status, data);
