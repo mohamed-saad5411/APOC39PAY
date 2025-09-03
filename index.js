@@ -6,14 +6,15 @@ import { URL } from "url";
 
 const PORT = 4000;
 // test
-const MERCHANT_ID = "TESTQNBAATEST001"; //CANCERHOSP // username: merchant.CANCERHOSP
-const MPGS_API_PASSWORD = "9c6a123857f1ea50830fa023ad8c8d1b"; // b787dc83048361da03682b71078ca05b
-const MPGS_BASE_URL = "https://qnbalahli.test.gateway.mastercard.com";
+// const MERCHANT_ID = "TESTQNBAATEST001"; //CANCERHOSP // username: merchant.CANCERHOSP
+// const MPGS_API_PASSWORD = "9c6a123857f1ea50830fa023ad8c8d1b"; // b787dc83048361da03682b71078ca05b
+// const MPGS_BASE_URL = "https://qnbalahli.test.gateway.mastercard.com";
 const RETURN_URL = "https://apoc39.com/src/success.html";
 // live
-// const MERCHANT_ID = "CANCERHOSP";
+const MERCHANT_ID = "CANCERHOSP";
 // const MPGS_API_PASSWORD = "b787dc83048361da03682b71078ca05b"; 
-// const MPGS_BASE_URL = "https://qnbalahli.gateway.mastercard.com";
+const MPGS_API_PASSWORD = "180e1339dbcd6b269b15ec662aa07b25"; 
+const MPGS_BASE_URL = "https://qnbalahli.gateway.mastercard.com";
 
 function sendJson(res, status, obj) {
   const body = JSON.stringify(obj);
@@ -72,7 +73,7 @@ const server = createServer(async (req, res) => {
           timeout: "1800",
           returnUrl,
           operation: "PURCHASE",
-          merchant: { name: "TEST Merchant" },
+          merchant: { name: "your name" },
           // merchant: { name: "merchant.CANCERHOSP" },
         },
         order: {
